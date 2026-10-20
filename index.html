@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Data Analyst — Efriza Rachima Putra</title>
+    <!-- Font & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0b1329;
+            --card-bg: #16203a;
+            --primary-red: #dc2626;
+            --accent-blue: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #2e3d61;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slider-container {
+            flex: 1;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Base Slide Layout (2 Columns for Projects & About) */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease-in-out;
+            padding: 2.5rem 4rem;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 2.5rem;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Full Width Slide Override (FLEXBOX CENTERED) */
+        .slide.full-width {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            text-align: center !important;
+            padding: 2.5rem 4rem !important;
+        }
+
+        .slide-content-centered {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Typography */
+        .badge {
+            display: inline-block;
+            background: rgba(220, 38, 38, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.2; margin-bottom: 0.8rem; }
+        h2 { font-size: 1.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.8rem; }
+        p.subtitle { color: var(--text-muted); font-size: 0.98rem; line-height: 1.5; margin-bottom: 1.2rem; }
+
+        /* Photo Cards & Gallery */
+        .project-visuals {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .chart-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 1.2rem;
+            border-radius: 14px;
+            height: 250px;
+            position: relative;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            width: 100%;
+        }
+
+        .photo-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            height: 140px;
+            position: relative;
+        }
+
+        .photo-box.large {
+            height: 220px;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-box:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-box .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text-main);
+            font-size: 0.72rem;
+            padding: 5px 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Profile Photo Container for Slide 2 */
+        .profile-photo-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            height: 380px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+        .profile-photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-photo-card .badge-overlay {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(4px);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            text-align: center;
+            color: var(--accent-blue);
+            font-weight: 700;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Metric Cards */
+        .metrics-inline {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            border-left: 3px solid var(--primary-red);
+            border-radius: 8px;
+            padding: 0.8rem;
+        }
+
+        .metric-card h4 { font-size: 0.75rem; color: var(--text-muted); }
+        .metric-card .val { font-size: 1.2rem; font-weight: 800; color: var(--accent-blue); }
+
+        /* Points */
+        ul.points { list-style: none; text-align: left; }
+        ul.points li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+        ul.points li::before {
+            content: "➔";
+            position: absolute;
+            left: 0;
+            color: var(--primary-red);
+        }
+        ul.points li strong { color: var(--text-main); }
+
+        /* Flowchart Box KKN */
+        .flowchart-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .flow-step {
+            background: #1e293b;
+            border-left: 3px solid var(--accent-blue);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        /* Perfectly Centered Skill Grid for Slide 3 */
+        .centered-skill-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.8rem;
+            width: 100%;
+        }
+
+        .skill-card-centered {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 2rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .skill-card-centered:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-blue);
+        }
+
+        .skill-icon {
+            font-size: 2.2rem;
+            color: var(--accent-blue);
+        }
+
+        .skill-card-centered h3 {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .skill-card-centered p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Social Contact Links */
+        .contact-links {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .contact-btn:hover {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+            transform: translateY(-3px);
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            height: 65px;
+            background: rgba(11, 19, 41, 0.95);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4rem;
+            z-index: 100;
+        }
+        .btn-nav {
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-nav:hover { background: var(--primary-red); border-color: var(--primary-red); }
+        .slide-counter { color: var(--text-muted); font-weight: 600; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <div class="slider-container">
+        
+        <!-- SLIDE 1: COVER -->
+        <div class="slide full-width active">
+            <div class="slide-content-centered">
+                <span class="badge">Data Analyst Portfolio 2026</span>
+                <h1>Efriza Rachima Putra</h1>
+                <p class="subtitle" style="max-width: 650px;">Fisheries Science Graduate (Cum Laude) from Universitas Padjadjaran | Specialized in Quantitative Research, Experimental Hypothesis Testing, & Operational Metrics.</p>
+                
+                <div style="width: 140px; height: 140px; border-radius: 50%; overflow: hidden; border: 3px solid var(--primary-red); margin-bottom: 1.5rem;">
+                    <img src="images/foto-profil.jpg" alt="Efriza Rachima Putra" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+
+                <div class="contact-links">
+                    <a href="mailto:efrizarachima@gmail.com" class="contact-btn"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://linkedin.com/in/efrizarp/" target="_blank" class="contact-btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="https://instagram.com/efrizarp" target="_blank" class="contact-btn"><i class="fab fa-instagram"></i> Instagram</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: ABOUT ME -->
+        <div class="slide">
+            <div>
+                <span class="badge">About Me</span>
+                <h2>Data-Driven Problem Solver</h2>
+                <p class="subtitle">Lulusan Perikanan Unpad dengan fondasi kuat dalam penelitian kuantitatif, rancangan percobaan, dan evaluasi metrik operasional. Terbiasa mengolah data mentah laboratorium maupun data lapangan menjadi *insight* analisis yang terstruktur dan berdampak pada pengambilan keputusan.</p>
+                
+                <div class="metrics-inline" style="grid-template-columns: repeat(3, 1fr); margin-top: 1.5rem;">
+                    <div class="metric-card">
+                        <h4>Akademik</h4>
+                        <div class="val" style="font-size: 1.1rem; color: #f8fafc;">IPK 3.59</div>
+                        <p style="font-size: 0.75rem; color: var(--text-muted);">Cum Laude Unpad</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Metodologi Uji</h4>
+                        <div class="val" style="font-size: 1.1rem; color: #f8fafc;">ANOVA</div>
+                        <p style="font-size: 0.75rem; color: var(--text-muted);">Uji Hipotesis & Statistik</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Fokus Analisis</h4>
+                        <div class="val" style="font-size: 1.1rem; color: #f8fafc;">EDA</div>
+                        <p style="font-size: 0.75rem; color: var(--text-muted);">Optimasi Operasional</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-photo-card">
+                <img src="images/foto-toga.jpeg" alt="Foto Efriza Toga Wisuda">
+                <div class="badge-overlay">S.Pi. — Universitas Padjadjaran (2024)</div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: TOOLS & COMPETENCIES (PRESI DI TENGAH LAYAR) -->
+        <div class="slide full-width">
+            <div class="slide-content-centered">
+                <span class="badge">Technical Competencies</span>
+                <h2>Tools & Professional Toolkit</h2>
+                <p class="subtitle" style="max-width: 700px;">Kombinasi komprehensif antara analisis data kuantitatif, pengujian statistik eksperimental, dan formulasi model bisnis.</p>
+                
+                <div class="centered-skill-grid">
+                    <div class="skill-card-centered">
+                        <div class="skill-icon"><i class="fas fa-chart-bar"></i></div>
+                        <h3>Data Analysis & Mining</h3>
+                        <p>Microsoft Excel (Pivot Table, Dynamic Slicer, Formulas), Python (Pandas, Matplotlib), SQL Queries (Joins, Aggregations), SigmaPlot.</p>
+                    </div>
+
+                    <div class="skill-card-centered">
+                        <div class="skill-icon"><i class="fas fa-flask"></i></div>
+                        <h3>Experimental Statistics</h3>
+                        <p>Rancangan Acak Lengkap (RAL), Hypothesis Testing, ANOVA 95% Confidence Interval, Duncan Multiple Range Test, Exploratory Data Analysis (EDA).</p>
+                    </div>
+
+                    <div class="skill-card-centered">
+                        <div class="skill-icon"><i class="fas fa-bullseye"></i></div>
+                        <h3>Business & Operations</h3>
+                        <p>Business Model Canvas (BMC), Financial Budgeting, Key Performance Indicators (KPI), Growth & Efficiency Tracking, Supply-Chain Mapping.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: PROJECT 01 (SKRIPSI) -->
+        <div class="slide">
+            <div>
+                <span class="badge">Technical Project 01 — Skripsi</span>
+                <h2>Evaluasi Ekstrak Jahe Merah terhadap Stres Termal Lele</h2>
+                
+                <div class="metrics-inline">
+                    <div class="metric-card">
+                        <h4>Dosis Optimal</h4>
+                        <div class="val">50 ml/kg</div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Survival Rate</h4>
+                        <div class="val">90%</div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Uji ANOVA</h4>
+                        <div class="val">P = 0.001</div>
+                    </div>
+                </div>
+
+                <ul class="points">
+                    <li><strong>Metodologi:</strong> Controlled Experiment (RAL 4 Perlakuan, 3 Ulangan) pada suhu ekstrem (33°C).</li>
+                    <li><strong>Hasil Imunitas:</strong> Dosis 50 ml/kg memicu lonjakan Leukosit hingga <strong>245.73 × 10³ sel/mm³</strong> dan Eritrosit hingga <strong>3.86 × 10⁶ sel/mm³</strong>.</li>
+                    <li><strong>Kesimpulan:</strong> Senyawa bioaktif jahe merah terbukti signifikan (P < 0.05) meningkatkan daya tahan dan respons fisiologis ikan.</li>
+                </ul>
+            </div>
+
+            <div class="project-visuals">
+                <div class="chart-box">
+                    <canvas id="skripsiChart"></canvas>
+                </div>
+                <div class="photo-gallery">
+                    <div class="photo-box">
+                        <img src="images/skripsi-1.jpeg" alt="Pembuatan Ekstrak Jahe Merah">
+                        <div class="caption">Pengambilan Sampel Darah</div>
+                    </div>
+                    <div class="photo-box">
+                        <img src="images/skripsi-2.jpeg" alt="Pengamatan Mikroskop">
+                        <div class="caption">Uji Hemasitometer Mikroskop</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: PROJECT 02 (BEJIHARJO) -->
+        <div class="slide">
+            <div>
+                <span class="badge">Technical Project 02 — PKL Bejiharjo</span>
+                <h2>Monitoring Pertumbuhan Masamo vs Mutiara (Sistem Kocor)</h2>
+                
+                <div class="metrics-inline">
+                    <div class="metric-card">
+                        <h4>Feed Conversion (FCR)</h4>
+                        <div class="val">1.17</div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Growth Masamo</h4>
+                        <div class="val">+47.86 g</div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Growth Mutiara</h4>
+                        <div class="val">+48.33 g</div>
+                    </div>
+                </div>
+
+                <ul class="points">
+                    <li><strong>Sampling & QC:</strong> Simple Random Sampling (50 ekor/strain) selama 14 hari pemeliharaan kolam terpal.</li>
+                    <li><strong>Pola Pertumbuhan:</strong> Kedua strain menunjukkan pertumbuhan isometrik seimbang dengan nilai Faktor Kondisi 2.19 (Masamo) dan 1.069 (Mutiara).</li>
+                    <li><strong>Kualitas Air SNI:</strong> Suhu terjaga pada 28.6–28.9°C, DO 6.1–10.3 ppm, dan pH 7.17–7.28.</li>
+                </ul>
+            </div>
+
+            <div class="project-visuals">
+                <div class="chart-box">
+                    <canvas id="bejiharjoChart"></canvas>
+                </div>
+                <div class="photo-gallery">
+                    <div class="photo-box">
+                        <img src="images/bejiharjo-1.jpeg" alt="Sampling Timbangan Digital">
+                        <div class="caption">Pengukuran & Timbangan Digital</div>
+                    </div>
+                    <div class="photo-box">
+                        <img src="images/bejiharjo-2.jpeg" alt="Pemaparan Hasil PKL">
+                        <div class="caption">Kolam Terpal Sistem Kocor</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: PROJECT 03 (KKN BANDASARI) -->
+        <div class="slide">
+            <div>
+                <span class="badge">Technical Project 03 — KKN Bandasari</span>
+                <h2>Program Kewirausahaan Terintegrasi Desa Bandasari</h2>
+                
+                <div class="metrics-inline">
+                    <div class="metric-card">
+                        <h4>Partisipan</h4>
+                        <div class="val">26 Org</div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Infrastruktur</h4>
+                        <div class="val">15 Bioflok</div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Output Legal</h4>
+                        <div class="val">SK Resmi</div>
+                    </div>
+                </div>
+
+                <ul class="points">
+                    <li><strong>Desain Ekosistem Usaha:</strong> Merancang 9 Elemen Business Model Canvas (BMC) untuk integrasi budidaya dan produk olahan lokal (Nugget & Dimsum Lele).</li>
+                    <li><strong>Kelembagaan:</strong> Membentuk & meresmikan kelompok ternak "Labuhan Bulan" serta menyusun proposal pendanaan BUMDes.</li>
+                    <li><strong>Pemberdayaan:</strong> Mengadakan sosialisasi dan pelatihan budgeting operasional bagi Ibu-Ibu PKK & Karang Taruna.</li>
+                </ul>
+            </div>
+
+            <div class="project-visuals">
+                <div class="flowchart-box">
+                    <div style="font-size:0.8rem; font-weight:700; color:var(--accent-blue);">Visualisasi Ekosistem Supply Chain Desa:</div>
+                    <div class="flow-step"><strong>1. Upstream:</strong> Kelompok Ternak "Labuhan Bulan" (Pemasok Daging Lele Segar)</div>
+                    <div class="flow-step"><strong>2. Midstream:</strong> Kelompok Usaha Desa (Divisi Pengolahan Nugget & Dimsum)</div>
+                    <div class="flow-step"><strong>3. Downstream:</strong> BUMDes & Karang Taruna (Go-To-Market & Retail)</div>
+                </div>
+                <div class="photo-gallery">
+                    <div class="photo-box">
+                        <img src="images/kkn-1.jpeg" alt="Sosialisasi Balai Desa">
+                        <div class="caption">Sosialisasi di Balai Desa</div>
+                    </div>
+                    <div class="photo-box">
+                        <img src="images/kkn-2.jpg" alt="Pemasangan Kolam Bioflok">
+                        <div class="caption">Pemasangan Kolam Bioflok</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: ORGANISASI -->
+        <div class="slide">
+            <div>
+                <span class="badge">Leadership & Community</span>
+                <h2>Organizational Experience</h2>
+                <p class="subtitle">Pengalaman kepemimpinan, alokasi anggaran, dan koordinasi operasional lintas divisi.</p>
+
+                <ul class="points" style="margin-top: 1rem;">
+                    <li><strong>Vice Chairman — Unit Flag Football Unpad (2023–2024):</strong> Memimpin alokasi anggaran tahunan, mendesentralisasi database atlet, dan mengkoordinasi operasional tim internal.</li>
+                    <li><strong>Finance Staff — Maritime Festival BEM FPIK (2022):</strong> Mengelola arus kas acara (*cashflow*), pencatatan vendor merchandise, dan meraih sponsorship senilai Rp 13 Juta.</li>
+                </ul>
+            </div>
+
+            <div class="photo-gallery" style="grid-template-columns: 1fr; gap: 1rem;">
+                <div class="photo-box large">
+                    <img src="images/org-1.jpeg" alt="Kegiatan Unit Flag Football Unpad">
+                    <div class="caption">Vice Chairman — Unit Flag Football Unpad</div>
+                </div>
+                <div class="photo-box large">
+                    <img src="images/org-2.jpeg" alt="Kegiatan Maritime Festival BEM FPIK">
+                    <div class="caption">Finance Staff — Maritime Festival BEM FPIK</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: SERTIFIKASI -->
+        <div class="slide">
+            <div>
+                <span class="badge">Continuous Learning</span>
+                <h2>Professional Certifications</h2>
+                <p class="subtitle">Sertifikasi profesional di bidang digital marketing, analisis kampanye, dan kemahiran bahasa internasional.</p>
+
+                <ul class="points">
+                    <li><strong>Marketing Management & Meta Ads:</strong> MySkill Specialization (Pengolahan Data Metrik & Performa Iklan)</li>
+                    <li><strong>Social Media & Influencer Marketing:</strong> MySkill Specialization</li>
+                    <li><strong>Intro to Digital Marketing:</strong> RevoU Certified Mini Course</li>
+                    <li><strong>English Proficiency:</strong> EF SET Certificate C1 Advanced (Score 67/100)</li>
+                </ul>
+            </div>
+
+            <div class="photo-gallery" style="grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+                <div class="photo-box">
+                    <img src="images/cert-1.jpg" alt="Sertifikat Marketing Management">
+                    <div class="caption">Marketing Management (MySkill)</div>
+                </div>
+                <div class="photo-box">
+                    <img src="images/cert-2.jpg" alt="Sertifikat Magang">
+                    <div class="caption">Sertifikat Magang UKBAT</div>
+                </div>
+                <div class="photo-box">
+                    <img src="images/cert-3.jpg" alt="Sertifikat RevoU">
+                    <div class="caption">Intro to Digital Marketing (RevoU)</div>
+                </div>
+                <div class="photo-box">
+                    <img src="images/cert-4.jpg" alt="Sertifikat EF SET C1">
+                    <div class="caption">EF SET English C1 Advanced</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: CLOSING / CONTACT -->
+        <div class="slide full-width">
+            <div class="slide-content-centered">
+                <span class="badge">Get in Touch</span>
+                <h1>Can't Wait To Work With You!</h1>
+                <p class="subtitle" style="max-width: 600px;">Saya siap berkontribusi dalam pengolahan data, pengujian metrik, dan penyusunan keputusan berbasis data di tim Anda.</p>
+
+                <div class="contact-links">
+                    <a href="mailto:efrizarachima@gmail.com" class="contact-btn"><i class="fas fa-envelope"></i> Efrizarachima@gmail.com</a>
+                    <a href="https://linkedin.com/in/efrizarp/" target="_blank" class="contact-btn"><i class="fab fa-linkedin"></i> linkedin.com/in/efrizarp</a>
+                    <a href="https://instagram.com/efrizarp" target="_blank" class="contact-btn"><i class="fab fa-instagram"></i> @efrizarp</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <button class="btn-nav" onclick="changeSlide(-1)">◄ Previous</button>
+        <div class="slide-counter" id="slideNum">Slide 1 / 9</div>
+        <button class="btn-nav" onclick="changeSlide(1)">Next ►</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slideNum = document.getElementById('slideNum');
+
+        function showSlide(n) {
+            slides.forEach(s => s.classList.remove('active'));
+            slides[n].classList.add('active');
+            slideNum.innerText = `Slide ${n + 1} / ${slides.length}`;
+        }
+
+        function changeSlide(dir) {
+            currentSlide += dir;
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= slides.length) currentSlide = slides.length - 1;
+            showSlide(currentSlide);
+        }
+
+        // CHART SKRIPSI
+        const ctx1 = document.getElementById('skripsiChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Kontrol A', 'Dosis B (30ml)', 'Dosis C (40ml)', 'Dosis D (50ml)'],
+                datasets: [
+                    { label: 'Leukosit (x10³ sel/mm³)', data: [181.28, 220.95, 237.97, 245.73], backgroundColor: '#ef4444' },
+                    { label: 'Eritrosit (x10⁵ sel/mm³)', data: [33.3, 36.0, 37.7, 38.6], backgroundColor: '#38bdf8' }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
+                scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
+            }
+        });
+
+        // CHART BEJIHARJO
+        const ctx2 = document.getElementById('bejiharjoChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Lele Masamo', 'Lele Mutiara'],
+                datasets: [
+                    { label: 'Bobot Awal (gram)', data: [47.15, 56.64], backgroundColor: '#64748b' },
+                    { label: 'Bobot Akhir 14 Hari (gram)', data: [95.01, 104.97], backgroundColor: '#38bdf8' }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
+                scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
+            }
+        });
+    </script>
+</body>
+</html>
