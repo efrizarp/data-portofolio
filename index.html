@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Data Analyst — Efriza Rachima Putra</title>
+    <title>Data Analyst Portfolio — Efriza Rachima Putra</title>
     <!-- Font & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -322,7 +322,40 @@
         .btn-nav:hover { background: var(--primary-red); border-color: var(--primary-red); }
         .slide-counter { color: var(--text-muted); font-weight: 600; font-size: 0.85rem; }
 
-        /* RESPONSIVE CSS FOR MOBILE (HP) */
+        /* CSS FOR PRINT/PDF EXPORT */
+        @media print {
+            body {
+                overflow: visible !important;
+                height: auto !important;
+                background-color: var(--bg-dark) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .slider-container {
+                height: auto !important;
+            }
+
+            .slide {
+                position: relative !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                page-break-after: always !important;
+                break-after: page !important;
+                height: 100vh !important;
+                padding: 2rem !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }
+
+            .nav-bar {
+                display: none !important;
+            }
+        }
+
+        /* RESPONSIVE CSS FOR MOBILE */
         @media (max-width: 768px) {
             .slide {
                 grid-template-columns: 1fr !important;
@@ -385,30 +418,30 @@
             <div>
                 <span class="badge">About Me</span>
                 <h2>Data-Driven Problem Solver</h2>
-                <p class="subtitle">Lulusan Perikanan Unpad dengan fondasi kuat dalam penelitian kuantitatif, rancangan percobaan, dan evaluasi metrik operasional. Terbiasa mengolah data mentah laboratorium maupun data lapangan menjadi *insight* analisis yang terstruktur dan berdampak pada pengambilan keputusan.</p>
+                <p class="subtitle">Fisheries graduate from Unpad with a strong foundation in quantitative research, experimental design, and operational metric evaluation. Experienced in transforming raw laboratory and field data into structured insights that drive strategic decision-making.</p>
                 
                 <div class="metrics-inline">
                     <div class="metric-card">
-                        <h4>Akademik</h4>
-                        <div class="val">IPK 3.59</div>
+                        <h4>Academics</h4>
+                        <div class="val">GPA 3.59</div>
                         <p style="font-size: 0.7rem; color: var(--text-muted);">Cum Laude</p>
                     </div>
                     <div class="metric-card">
-                        <h4>Metodologi</h4>
+                        <h4>Methodology</h4>
                         <div class="val">ANOVA</div>
-                        <p style="font-size: 0.7rem; color: var(--text-muted);">Uji Hipotesis</p>
+                        <p style="font-size: 0.7rem; color: var(--text-muted);">Hypothesis Testing</p>
                     </div>
                     <div class="metric-card">
-                        <h4>Fokus Uji</h4>
+                        <h4>Analysis Focus</h4>
                         <div class="val">EDA</div>
-                        <p style="font-size: 0.7rem; color: var(--text-muted);">Optimasi</p>
+                        <p style="font-size: 0.7rem; color: var(--text-muted);">Optimization</p>
                     </div>
                 </div>
             </div>
 
             <div class="profile-photo-card">
-                <img src="images/foto-toga.jpeg" alt="Foto Efriza Toga Wisuda">
-                <div class="badge-overlay">S.Pi. — Universitas Padjadjaran (2024)</div>
+                <img src="images/foto-toga.jpeg" alt="Efriza Graduation Photo">
+                <div class="badge-overlay">B.S. in Fisheries — Universitas Padjadjaran (2024)</div>
             </div>
         </div>
 
@@ -417,19 +450,19 @@
             <div class="slide-content-centered">
                 <span class="badge">Technical Competencies</span>
                 <h2>Tools & Professional Toolkit</h2>
-                <p class="subtitle" style="max-width: 700px;">Kombinasi komprehensif antara analisis data kuantitatif, pengujian statistik eksperimental, dan formulasi model bisnis.</p>
+                <p class="subtitle" style="max-width: 700px;">A comprehensive toolkit combining quantitative data analysis, experimental statistical testing, and business model formulation.</p>
                 
                 <div class="centered-skill-grid">
                     <div class="skill-card-centered">
                         <div class="skill-icon"><i class="fas fa-chart-bar"></i></div>
                         <h3>Data Analysis & Mining</h3>
-                        <p>Microsoft Excel (Pivot Table, Dynamic Slicer, Formulas), Python (Pandas, Matplotlib), SQL Queries (Joins, Aggregations), SigmaPlot.</p>
+                        <p>Microsoft Excel (Pivot Tables, Dynamic Slicers, Advanced Formulas), Python (Pandas, Matplotlib), SQL Queries (Joins, Aggregations), SigmaPlot.</p>
                     </div>
 
                     <div class="skill-card-centered">
                         <div class="skill-icon"><i class="fas fa-flask"></i></div>
                         <h3>Experimental Statistics</h3>
-                        <p>Rancangan Acak Lengkap (RAL), Hypothesis Testing, ANOVA 95% Confidence Interval, Duncan Multiple Range Test, Exploratory Data Analysis (EDA).</p>
+                        <p>Completely Randomized Design (CRD), Hypothesis Testing, ANOVA 95% Confidence Interval, Duncan Multiple Range Test, Exploratory Data Analysis (EDA).</p>
                     </div>
 
                     <div class="skill-card-centered">
@@ -441,31 +474,31 @@
             </div>
         </div>
 
-        <!-- SLIDE 4: PROJECT 01 (SKRIPSI) -->
+        <!-- SLIDE 4: PROJECT 01 (THESIS) -->
         <div class="slide">
             <div>
-                <span class="badge">Technical Project 01 — Skripsi</span>
-                <h2>Evaluasi Ekstrak Jahe Merah terhadap Stres Termal Lele</h2>
+                <span class="badge">Technical Project 01 — Undergraduate Thesis</span>
+                <h2>Red Ginger Extract Evaluation on Catfish Thermal Stress</h2>
                 
                 <div class="metrics-inline">
                     <div class="metric-card">
-                        <h4>Dosis</h4>
+                        <h4>Optimal Dosage</h4>
                         <div class="val">50 ml/kg</div>
                     </div>
                     <div class="metric-card">
-                        <h4>Survival</h4>
+                        <h4>Survival Rate</h4>
                         <div class="val">90%</div>
                     </div>
                     <div class="metric-card">
-                        <h4>ANOVA</h4>
+                        <h4>ANOVA Test</h4>
                         <div class="val">P = 0.001</div>
                     </div>
                 </div>
 
                 <ul class="points">
-                    <li><strong>Metodologi:</strong> Controlled Experiment (RAL 4 Perlakuan, 3 Ulangan) pada suhu ekstrem (33°C).</li>
-                    <li><strong>Hasil Imunitas:</strong> Dosis 50 ml/kg memicu lonjakan Leukosit hingga <strong>245.73 × 10³ sel/mm³</strong> dan Eritrosit hingga <strong>3.86 × 10⁶ sel/mm³</strong>.</li>
-                    <li><strong>Kesimpulan:</strong> Senyawa bioaktif jahe merah terbukti signifikan (P < 0.05) meningkatkan daya tahan fisiologis.</li>
+                    <li><strong>Methodology:</strong> Controlled Experiment using Completely Randomized Design (4 Treatments, 3 Replications) under extreme thermal stress (33°C).</li>
+                    <li><strong>Immune Response:</strong> A dosage of 50 ml/kg induced a peak in White Blood Cell count up to <strong>245.73 × 10³ cells/mm³</strong> and Red Blood Cell count up to <strong>3.86 × 10⁶ cells/mm³</strong>.</li>
+                    <li><strong>Key Finding:</strong> Bioactive compounds in red ginger significantly (P < 0.05) enhanced physiological resilience and thermal stress survival.</li>
                 </ul>
             </div>
 
@@ -475,42 +508,42 @@
                 </div>
                 <div class="photo-gallery">
                     <div class="photo-box">
-                        <img src="images/skripsi-1.jpeg" alt="Pembuatan Ekstrak Jahe Merah">
-                        <div class="caption">Pengambilan Sampel Darah</div>
+                        <img src="images/skripsi-1.jpeg" alt="Blood Sample Collection">
+                        <div class="caption">Blood Sample Collection</div>
                     </div>
                     <div class="photo-box">
-                        <img src="images/skripsi-2.jpeg" alt="Pengamatan Mikroskop">
-                        <div class="caption">Uji Hemasitometer Mikroskop</div>
+                        <img src="images/skripsi-2.jpeg" alt="Microscopic Examination">
+                        <div class="caption">Hemocytometer Microscopic Test</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 5: PROJECT 02 (BEJIHARJO) -->
+        <!-- SLIDE 5: PROJECT 02 (INTERNSHIP BEJIHARJO) -->
         <div class="slide">
             <div>
-                <span class="badge">Technical Project 02 — PKL Bejiharjo</span>
-                <h2>Monitoring Pertumbuhan Masamo vs Mutiara (Sistem Kocor)</h2>
+                <span class="badge">Technical Project 02 — Field Internship</span>
+                <h2>Growth Performance Monitoring: Masamo vs Mutiara Strains</h2>
                 
                 <div class="metrics-inline">
                     <div class="metric-card">
-                        <h4>FCR</h4>
+                        <h4>FCR Efficiency</h4>
                         <div class="val">1.17</div>
                     </div>
                     <div class="metric-card">
-                        <h4>Masamo</h4>
+                        <h4>Masamo Growth</h4>
                         <div class="val">+47.86 g</div>
                     </div>
                     <div class="metric-card">
-                        <h4>Mutiara</h4>
+                        <h4>Mutiara Growth</h4>
                         <div class="val">+48.33 g</div>
                     </div>
                 </div>
 
                 <ul class="points">
-                    <li><strong>Sampling & QC:</strong> Simple Random Sampling (50 ekor/strain) selama 14 hari pemeliharaan.</li>
-                    <li><strong>Pola Pertumbuhan:</strong> Kedua strain menunjukkan pertumbuhan isometrik seimbang (FK Masamo 2.19 & Mutiara 1.069).</li>
-                    <li><strong>Kualitas Air SNI:</strong> Suhu terjaga 28.6–28.9°C, DO 6.1–10.3 ppm, dan pH 7.17–7.28.</li>
+                    <li><strong>Sampling & QC:</strong> Performed Simple Random Sampling (50 specimens/strain) over a 14-day culture period in tarpaulin ponds with flow-through systems.</li>
+                    <li><strong>Growth Pattern:</strong> Both strains displayed balanced isometric growth with Condition Factors of 2.19 (Masamo) and 1.069 (Mutiara).</li>
+                    <li><strong>Water Quality (SNI):</strong> Maintained optimal standards — Temperature 28.6–28.9°C, DO 6.1–10.3 ppm, and pH 7.17–7.28.</li>
                 </ul>
             </div>
 
@@ -520,120 +553,120 @@
                 </div>
                 <div class="photo-gallery">
                     <div class="photo-box">
-                        <img src="images/bejiharjo-1.jpeg" alt="Sampling Timbangan Digital">
-                        <div class="caption">Pengukuran Timbangan Digital</div>
+                        <img src="images/bejiharjo-1.jpeg" alt="Digital Weight Measurement">
+                        <div class="caption">Digital Scale Sampling</div>
                     </div>
                     <div class="photo-box">
-                        <img src="images/bejiharjo-2.jpeg" alt="Pemaparan Hasil PKL">
-                        <div class="caption">Kolam Terpal Sistem Kocor</div>
+                        <img src="images/bejiharjo-2.jpeg" alt="Tarpaulin Pond System">
+                        <div class="caption">Flow-Through Tarpaulin Ponds</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 6: PROJECT 03 (KKN BANDASARI) -->
+        <!-- SLIDE 6: PROJECT 03 (COMMUNITY SERVICE BANDASARI) -->
         <div class="slide">
             <div>
-                <span class="badge">Technical Project 03 — KKN Bandasari</span>
-                <h2>Program Kewirausahaan Terintegrasi Desa Bandasari</h2>
+                <span class="badge">Technical Project 03 — Community Service</span>
+                <h2>Integrated Village Business Program at Desa Bandasari</h2>
                 
                 <div class="metrics-inline">
                     <div class="metric-card">
-                        <h4>Partisipan</h4>
-                        <div class="val">26 Org</div>
+                        <h4>Participants</h4>
+                        <div class="val">26 People</div>
                     </div>
                     <div class="metric-card">
-                        <h4>Bioflok</h4>
-                        <div class="val">15 Kolam</div>
+                        <h4>Bioflok Ponds</h4>
+                        <div class="val">15 Units</div>
                     </div>
                     <div class="metric-card">
-                        <h4>Legalitas</h4>
-                        <div class="val">SK Resmi</div>
+                        <h4>Legal Outcome</h4>
+                        <div class="val">Official Decree</div>
                     </div>
                 </div>
 
                 <ul class="points">
-                    <li><strong>Desain Ekosistem Usaha:</strong> Merancang 9 Elemen BMC untuk integrasi budidaya dan olahan lokal (Nugget & Dimsum Lele).</li>
-                    <li><strong>Kelembagaan:</strong> Membentuk & meresmikan kelompok ternak "Labuhan Bulan" serta proposal BUMDes.</li>
-                    <li><strong>Pemberdayaan:</strong> Edukasi dan pelatihan budgeting operasional bagi Ibu-Ibu PKK & Karang Taruna.</li>
+                    <li><strong>Business Ecosystem Design:</strong> Formulated 9 Business Model Canvas (BMC) building blocks integrating aquaculture production with processed products (Catfish Nuggets & Dimsum).</li>
+                    <li><strong>Institutional Setup:</strong> Established and legalized "Labuhan Bulan" aquaculture group and drafted funding proposals for local village enterprises (BUMDes).</li>
+                    <li><strong>Empowerment:</strong> Conducted operational budgeting training and workshops for local Women's Association (PKK) and Youth Organization.</li>
                 </ul>
             </div>
 
             <div class="project-visuals">
                 <div class="flowchart-box">
-                    <div style="font-size:0.75rem; font-weight:700; color:var(--accent-blue);">Visualisasi Ekosistem Supply Chain Desa:</div>
-                    <div class="flow-step"><strong>1. Upstream:</strong> Kelompok Ternak "Labuhan Bulan" (Pemasok Daging)</div>
-                    <div class="flow-step"><strong>2. Midstream:</strong> Kelompok Usaha Desa (Divisi Pengolahan)</div>
-                    <div class="flow-step"><strong>3. Downstream:</strong> BUMDes & Karang Taruna (Retail)</div>
+                    <div style="font-size:0.75rem; font-weight:700; color:var(--accent-blue);">Village Supply Chain Ecosystem Mapping:</div>
+                    <div class="flow-step"><strong>1. Upstream:</strong> "Labuhan Bulan" Farming Group (Raw Material Supplier)</div>
+                    <div class="flow-step"><strong>2. Midstream:</strong> Village Enterprise Group (Processing Division)</div>
+                    <div class="flow-step"><strong>3. Downstream:</strong> BUMDes & Youth Organization (Retail & Distribution)</div>
                 </div>
                 <div class="photo-gallery">
                     <div class="photo-box">
-                        <img src="images/kkn-1.jpeg" alt="Sosialisasi Balai Desa">
-                        <div class="caption">Sosialisasi Balai Desa</div>
+                        <img src="images/kkn-1.jpeg" alt="Community Workshop">
+                        <div class="caption">Community Hall Workshop</div>
                     </div>
                     <div class="photo-box">
-                        <img src="images/kkn-2.jpeg" alt="Pemasangan Kolam Bioflok">
-                        <div class="caption">Pemasangan Kolam Bioflok</div>
+                        <img src="images/kkn-2.jpeg" alt="Bioflok Installation">
+                        <div class="caption">Bioflok Pond Installation</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 7: ORGANISASI -->
+        <!-- SLIDE 7: ORGANIZATIONAL EXPERIENCE -->
         <div class="slide">
             <div>
                 <span class="badge">Leadership & Community</span>
                 <h2>Organizational Experience</h2>
-                <p class="subtitle">Pengalaman kepemimpinan, alokasi anggaran, dan koordinasi operasional lintas divisi.</p>
+                <p class="subtitle">Demonstrated leadership in annual budget allocation, athletic database management, and cross-functional team coordination.</p>
 
                 <ul class="points" style="margin-top: 0.8rem;">
-                    <li><strong>Vice Chairman — Unit Flag Football Unpad (2023–2024):</strong> Memimpin alokasi anggaran tahunan, mendesentralisasi database atlet, dan mengkoordinasi operasional tim internal.</li>
-                    <li><strong>Finance Staff — Maritime Festival BEM FPIK (2022):</strong> Mengelola arus kas acara (*cashflow*), pencatatan vendor merchandise, dan meraih sponsorship Rp 13 Juta.</li>
+                    <li><strong>Vice Chairman — Flag Football Unit Unpad (2023–2024):</strong> Managed annual budget allocation, decentralized the athlete database, and led internal team operations.</li>
+                    <li><strong>Finance Staff — Maritime Festival BEM FPIK (2022):</strong> Managed event cash flow, vendor merchandise tracking, and secured IDR 13 Million in sponsorship funding.</li>
                 </ul>
             </div>
 
             <div class="photo-gallery" style="grid-template-columns: 1fr; gap: 0.8rem;">
                 <div class="photo-box large">
-                    <img src="images/org-1.jpeg" alt="Kegiatan Unit Flag Football Unpad">
-                    <div class="caption">Vice Chairman — Unit Flag Football Unpad</div>
+                    <img src="images/org-1.jpeg" alt="Flag Football Unpad Team">
+                    <div class="caption">Vice Chairman — Flag Football Unpad</div>
                 </div>
                 <div class="photo-box large">
-                    <img src="images/org-2.jpeg" alt="Kegiatan Maritime Festival BEM FPIK">
+                    <img src="images/org-2.jpeg" alt="Maritime Festival Team">
                     <div class="caption">Finance Staff — Maritime Festival BEM FPIK</div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 8: SERTIFIKASI -->
+        <!-- SLIDE 8: CERTIFICATIONS -->
         <div class="slide">
             <div>
                 <span class="badge">Continuous Learning</span>
                 <h2>Professional Certifications</h2>
-                <p class="subtitle">Sertifikasi profesional di bidang digital marketing, analisis kampanye, dan kemahiran bahasa internasional.</p>
+                <p class="subtitle">Professional credentials in data analytics, digital campaign performance tracking, and international language proficiency.</p>
 
                 <ul class="points">
-                    <li><strong>Marketing Management & Meta Ads:</strong> MySkill Specialization</li>
+                    <li><strong>Marketing Management & Meta Ads:</strong> MySkill Specialization (Data Metrics & Campaign Analytics)</li>
                     <li><strong>Social Media & Influencer Marketing:</strong> MySkill Specialization</li>
                     <li><strong>Intro to Digital Marketing:</strong> RevoU Certified Mini Course</li>
-                    <li><strong>English Proficiency:</strong> EF SET Certificate C1 Advanced (Score 67/100)</li>
+                    <li><strong>English Language Proficiency:</strong> EF SET Certificate C1 Advanced (Score 67/100)</li>
                 </ul>
             </div>
 
             <div class="photo-gallery" style="grid-template-columns: 1fr 1fr; gap: 0.8rem;">
                 <div class="photo-box">
-                    <img src="images/cert-1.jpeg" alt="Sertifikat Marketing Management">
+                    <img src="images/cert-1.jpeg" alt="Marketing Management Certificate">
                     <div class="caption">Marketing Management (MySkill)</div>
                 </div>
                 <div class="photo-box">
-                    <img src="images/cert-2.jpeg" alt="Sertifikat Magang">
-                    <div class="caption">Sertifikat Magang UKBAT</div>
+                    <img src="images/cert-2.jpeg" alt="Internship Certificate">
+                    <div class="caption">Internship Certificate (UKBAT)</div>
                 </div>
                 <div class="photo-box">
-                    <img src="images/cert-3.jpeg" alt="Sertifikat RevoU">
+                    <img src="images/cert-3.jpeg" alt="RevoU Certificate">
                     <div class="caption">Intro Digital Marketing (RevoU)</div>
                 </div>
                 <div class="photo-box">
-                    <img src="images/cert-4.jpeg" alt="Sertifikat EF SET C1">
+                    <img src="images/cert-4.jpeg" alt="EF SET Certificate">
                     <div class="caption">EF SET English C1 Advanced</div>
                 </div>
             </div>
@@ -644,7 +677,7 @@
             <div class="slide-content-centered">
                 <span class="badge">Get in Touch</span>
                 <h1>Can't Wait To Work With You!</h1>
-                <p class="subtitle" style="max-width: 600px;">Saya siap berkontribusi dalam pengolahan data, pengujian metrik, dan penyusunan keputusan berbasis data di tim Anda.</p>
+                <p class="subtitle" style="max-width: 600px;">I am ready to contribute to data analytics, metric modeling, and data-driven strategy for your team.</p>
 
                 <div class="contact-links">
                     <a href="mailto:efrizarachima@gmail.com" class="contact-btn"><i class="fas fa-envelope"></i> Efrizarachima@gmail.com</a>
@@ -682,15 +715,15 @@
             showSlide(currentSlide);
         }
 
-        // CHART SKRIPSI
+        // CHART SKRIPSI (THESIS)
         const ctx1 = document.getElementById('skripsiChart').getContext('2d');
         new Chart(ctx1, {
             type: 'bar',
             data: {
-                labels: ['Kontrol A', 'Dosis B', 'Dosis C', 'Dosis D'],
+                labels: ['Control A', 'Dosage B', 'Dosage C', 'Dosage D'],
                 datasets: [
-                    { label: 'Leukosit (x10³)', data: [181.28, 220.95, 237.97, 245.73], backgroundColor: '#ef4444' },
-                    { label: 'Eritrosit (x10⁵)', data: [33.3, 36.0, 37.7, 38.6], backgroundColor: '#38bdf8' }
+                    { label: 'WBC (x10³ cells/mm³)', data: [181.28, 220.95, 237.97, 245.73], backgroundColor: '#ef4444' },
+                    { label: 'RBC (x10⁵ cells/mm³)', data: [33.3, 36.0, 37.7, 38.6], backgroundColor: '#38bdf8' }
                 ]
             },
             options: {
@@ -700,15 +733,15 @@
             }
         });
 
-        // CHART BEJIHARJO
+        // CHART BEJIHARJO (FIELD INTERNSHIP)
         const ctx2 = document.getElementById('bejiharjoChart').getContext('2d');
         new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: ['Masamo', 'Mutiara'],
+                labels: ['Masamo Strain', 'Mutiara Strain'],
                 datasets: [
-                    { label: 'Awal (g)', data: [47.15, 56.64], backgroundColor: '#64748b' },
-                    { label: 'Akhir 14 Hari (g)', data: [95.01, 104.97], backgroundColor: '#38bdf8' }
+                    { label: 'Initial Weight (g)', data: [47.15, 56.64], backgroundColor: '#64748b' },
+                    { label: '14-Day Final Weight (g)', data: [95.01, 104.97], backgroundColor: '#38bdf8' }
                 ]
             },
             options: {
